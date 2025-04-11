@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,14 +36,14 @@ public class Etudiant implements Serializable {
 
 
 
-    @OneToMany(mappedBy = "etudiant")
-    List<Tache> taches;
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Tache> taches = new ArrayList<>();
     Float montantInscription;
     @Enumerated(EnumType.STRING)
     TypeEtudiant typeEtudiant;
 
     @ManyToMany(mappedBy = "etudiants",fetch = FetchType.EAGER)
-    List<Reservation> reservations;
+    private List<Reservation> reservations;
 
     @OneToOne
     Tache tache;
